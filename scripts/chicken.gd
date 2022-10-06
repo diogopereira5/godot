@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 export (int) var speed = 100
-const GRAVITY = 200.0
 var velocity = Vector2()
 
 func get_input():
