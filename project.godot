@@ -10,24 +10,12 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
-"class": "Matrix",
+"class": "Neural_Network",
 "language": "GDScript",
-"path": "res://lib/Neural Network/Matrix.gd"
-}, {
-"base": "Reference",
-"class": "MatrixOperator",
-"language": "GDScript",
-"path": "res://lib/Neural Network/MatrixOperator.gd"
-}, {
-"base": "Reference",
-"class": "NeuralNetwork",
-"language": "GDScript",
-"path": "res://lib/Neural Network/Brain.gd"
+"path": "res://scripts/neural_network.gd"
 } ]
 _global_script_class_icons={
-"Matrix": "",
-"MatrixOperator": "",
-"NeuralNetwork": ""
+"Neural_Network": ""
 }
 
 [application]
