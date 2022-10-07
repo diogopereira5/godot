@@ -8,16 +8,33 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Matrix",
+"language": "GDScript",
+"path": "res://lib/Neural Network/Matrix.gd"
+}, {
+"base": "Reference",
+"class": "MatrixOperator",
+"language": "GDScript",
+"path": "res://lib/Neural Network/MatrixOperator.gd"
+}, {
+"base": "Reference",
+"class": "NeuralNetwork",
+"language": "GDScript",
+"path": "res://lib/Neural Network/Brain.gd"
+} ]
+_global_script_class_icons={
+"Matrix": "",
+"MatrixOperator": "",
+"NeuralNetwork": ""
+}
+
 [application]
 
 config/name="Isometric"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
-
-[display]
-
-window/size/width=640
-window/size/height=360
 
 [gui]
 
