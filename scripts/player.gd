@@ -1,11 +1,11 @@
 extends KinematicBody2D
 
 var NeuralNetwork = preload("res://scripts/neural_network.gd")
-
 onready var Map := get_tree().get_root().get_node("Main").get_node("Map")
 
 export (int) var speed = 100
 var velocity = Vector2()
+var inputs: Array
 var neural
 
 func _init():
@@ -13,34 +13,36 @@ func _init():
 	neural.start(1,10,4)
 
 func _physics_process(delta):
-	move(delta)
-	
 	# pegar atributos para a rede neural
 	var pos = get_transform()[2]
 	var tilemap = Map.get_node("floor")
 	var tile:Vector2 = tilemap.world_to_map(pos)
 	var cell_id:int = tilemap.get_cellv(tile)
-	neural.think(cell_id)
+	if(cell_id >= 0):
+		inputs = neural.think(cell_id)
+		move(delta)
 	
 	
 func move(delta):
-	get_input()
-	velocity = velocity * delta
-	move_and_collide(velocity)
-
-func get_input():
+	
 	velocity = Vector2()
-	if Input.is_action_pressed("down"):
-		velocity += Vector2(-1,0.5)
-		$Sprite.set_frame(4)
-	if Input.is_action_pressed("up"):
-		velocity += Vector2(1,-0.5)
-		$Sprite.set_frame(6)
-	if Input.is_action_pressed("left"):
-		velocity += Vector2(-1,-0.5)
-		$Sprite.set_frame(7)
-	if Input.is_action_pressed("right"):
-		velocity += Vector2(1,0.5)
-		$Sprite.set_frame(5)
+	
+	if inputs.size() > 0:
 		
-	velocity = velocity.normalized() * speed
+		if inputs[0] >= 0.5: #up
+			velocity += Vector2(1,-0.5)
+			$Sprite.set_frame(6)
+		if inputs[1] >= 0.5: #down
+			velocity += Vector2(-1,0.5)
+			$Sprite.set_frame(4)
+		if inputs[2] >= 0.5: #right
+			velocity += Vector2(1,0.5)
+			$Sprite.set_frame(5)
+		if inputs[3] >= 0.5: #left
+			velocity += Vector2(-1,-0.5)
+			$Sprite.set_frame(7)
+		
+	inputs = []
+	velocity = velocity.normalized() * speed * delta
+	#velocity = velocity * delta
+	move_and_collide(velocity)

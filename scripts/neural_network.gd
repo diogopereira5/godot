@@ -16,7 +16,7 @@ func think(id_tile_map):
 	var inputs: Array = [id_tile_map]
 	var hidden_layer = multiply(inputs,weights_inputs)
 	var output = multiply(hidden_layer, weights_output)
-	print(output)
+	return output
 	
 	
 func multiply(matrix1, matrix2):
