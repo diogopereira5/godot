@@ -10,7 +10,7 @@ var neural
 
 func _init():
 	neural = NeuralNetwork.new()
-	neural.start(1,10,4)
+	neural.start(3,10,4)
 
 func _physics_process(delta):
 	# pegar atributos para a rede neural
@@ -18,10 +18,15 @@ func _physics_process(delta):
 	var tilemap = Map.get_node("floor")
 	var tile:Vector2 = tilemap.world_to_map(pos)
 	var cell_id:int = tilemap.get_cellv(tile)
-	if(cell_id >= 0):
-		inputs = neural.think(cell_id)
-		move(delta)
+	var food = tilemap.get_used_cells_by_id(0)
 	
+	if(cell_id >= 0 && food.size() > 0):
+		var food_x = food[0][0]
+		var food_y = food[0][1]	
+		var map_size = tilemap.cell_size
+		inputs = neural.think(cell_id, food_x, food_y, tile[0], tile[1], map_size[0], map_size[1])
+		#print(inputs)
+		move(delta)
 	
 func move(delta):
 	

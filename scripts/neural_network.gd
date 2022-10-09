@@ -3,7 +3,7 @@ class_name Neural_Network
 var weights_inputs: Array = []
 var weights_output: Array = []
 
-var bias: float = 1
+var bias: float = 0.1
 
 func sigmoid(x):
 	return 1 / (1 + exp(-x))
@@ -12,8 +12,8 @@ func start(size_inputs,size_hidden,size_output):
 	randomArray(size_inputs,size_hidden,weights_inputs)
 	randomArray(size_hidden,size_output,weights_output)
 	
-func think(id_tile_map):
-	var inputs: Array = [id_tile_map]
+func think(id_tile_map, food_x, food_y, player_x, player_y, map_size_x, map_size_y):
+	var inputs: Array = [id_tile_map, food_x, food_y, player_x, player_y, map_size_x, map_size_y]
 	var hidden_layer = multiply(inputs,weights_inputs)
 	var output = multiply(hidden_layer, weights_output)
 	return output
