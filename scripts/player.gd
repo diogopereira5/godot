@@ -30,8 +30,6 @@ func move(delta):
 	
 	velocity = Vector2()
 	
-	inputs = [0,0,0,1]
-	
 	if inputs.size() > 0:
 		
 		var count = 0

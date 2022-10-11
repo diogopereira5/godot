@@ -16,14 +16,17 @@ func _process(delta):
 		lifeTime -= 1
 	else:
 		if foods.size() > 0:
-			deadFood(foods[0][0], foods[0][1])
+			for i in foods:
+				deadFood(i[0], i[1])
+			foods = []
 		lifeTime = lifeSize
 		random.randomize()
 		var size_map = tilemap.get_used_cells_by_id(1)
-		var x = random.randf_range(size_map[0][0], size_map[size_map.size() - 1][0])
-		var y = random.randf_range(size_map[0][1], size_map[size_map.size() - 1][1])
-		foods.append([x,y])
-		growFood(x,y)
+		for i in 3:
+			var x = random.randf_range(size_map[0][0], size_map[size_map.size() - 1][0])
+			var y = random.randf_range(size_map[0][1], size_map[size_map.size() - 1][1])
+			foods.append([x,y])
+			growFood(x,y)
 	
 func growFood(x,y):
 	var pos: Vector2 = Vector2(int(x),int(y))
