@@ -9,7 +9,7 @@ export (int) var populationSize = 1
 
 func _ready():
 	random.randomize()
-	
+	print(Map)
 	var tilemap = Map.get_node("floor")
 	var size_map = tilemap.get_used_cells_by_id(1)
 	
@@ -20,5 +20,4 @@ func _ready():
 		
 		var chickenInstance = chicken.instance()
 		chickenInstance.position = Vector2(pos_world[0], pos_world[1])
-		print(chickenInstance.transform)
 		add_child(chickenInstance)

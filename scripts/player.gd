@@ -20,10 +20,12 @@ func _physics_process(delta):
 	var cell_id:int = tilemap.get_cellv(tile)
 	#var food = tilemap.get_used_cells_by_id(0)
 	
-	if(cell_id >= 0):
-		var map_size = tilemap.cell_size
-		inputs = neural.think(cell_id, tile[0], tile[1], map_size[0], map_size[1])
-		#print(inputs)
+	var map_size = tilemap.cell_size
+	inputs = neural.think(cell_id, tile[0], tile[1], map_size[0], map_size[1])
+	
+	print(inputs)
+	
+	if cell_id >= 0:
 		move(delta)
 	
 func move(delta):
