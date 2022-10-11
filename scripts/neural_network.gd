@@ -12,8 +12,8 @@ func start(size_inputs,size_hidden,size_output):
 	randomArray(size_inputs,size_hidden,weights_inputs)
 	randomArray(size_hidden,size_output,weights_output)
 	
-func think(id_tile_map, food_x, food_y, player_x, player_y, map_size_x, map_size_y):
-	var inputs: Array = [id_tile_map, food_x, food_y, player_x, player_y, map_size_x, map_size_y]
+func think(id_tile_map, player_x, player_y, map_size_x, map_size_y):
+	var inputs: Array = [id_tile_map, player_x, player_y, map_size_x, map_size_y]
 	var hidden_layer = multiply(inputs,weights_inputs)
 	var output = multiply(hidden_layer, weights_output)
 	return output

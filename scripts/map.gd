@@ -1,25 +1,34 @@
 extends Node2D
+var random = RandomNumberGenerator.new()
 
 onready var tilemap: Node2D = get_node("floor")
+var lifeTime = 0
+export (int) var lifeSize = 60 * 10
+var foods: Array = []
 
 func _ready():
 	#print(tilemap.cell_size)
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-func _input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT and event.pressed:
-			print("Left button was clicked at ", event.position)
-			
-			var pos:Vector2 = event.position
-			var tile:Vector2 = tilemap.world_to_map(pos)
-			var cell:int = tilemap.get_cellv(tile)
-			print(cell)
-			tilemap.set_cellv(tile, 0)
-#			
-		if event.button_index == BUTTON_WHEEL_UP and event.pressed:
-			print("Wheel up")
+func _process(delta):
+	if lifeTime >= 0:
+		lifeTime -= 1
+	else:
+		if foods.size() > 0:
+			deadFood(foods[0][0], foods[0][1])
+		lifeTime = lifeSize
+		random.randomize()
+		var size_map = tilemap.get_used_cells_by_id(1)
+		var x = random.randf_range(size_map[0][0], size_map[size_map.size() - 1][0])
+		var y = random.randf_range(size_map[0][1], size_map[size_map.size() - 1][1])
+		foods.append([x,y])
+		growFood(x,y)
+	
+func growFood(x,y):
+	var pos: Vector2 = Vector2(int(x),int(y))
+	tilemap.set_cellv(pos, 0)
+	
+func deadFood(x,y):
+	var pos: Vector2 = Vector2(int(x),int(y))
+	tilemap.set_cellv(pos, 1)
