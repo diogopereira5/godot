@@ -3,7 +3,8 @@ var random = RandomNumberGenerator.new()
 
 onready var tilemap: Node2D = get_node("floor")
 var lifeTime = 0
-export (int) var lifeSize = 60 * 10
+export (int) var lifeSize = 60 * 5
+export (int) var foodSize = 10
 var foods: Array = []
 
 func _ready():
@@ -22,7 +23,7 @@ func _process(delta):
 		lifeTime = lifeSize
 		random.randomize()
 		var size_map = tilemap.get_used_cells_by_id(1)
-		for i in 3:
+		for i in foodSize:
 			var x = random.randf_range(size_map[0][0], size_map[size_map.size() - 1][0])
 			var y = random.randf_range(size_map[0][1], size_map[size_map.size() - 1][1])
 			foods.append([x,y])

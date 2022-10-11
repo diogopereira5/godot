@@ -35,6 +35,7 @@
 
 [node name="Map" type="Node2D"]
 script = ExtResource( 3 )
+foodSize = 1
 
 [node name="floor" type="TileMap" parent="."]
 mode = 1
