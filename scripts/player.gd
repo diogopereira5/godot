@@ -3,17 +3,17 @@ extends KinematicBody2D
 var NeuralNetwork = preload("res://scripts/neural_network.gd")
 onready var Map := get_tree().get_root().get_node("Main").get_node("Map")
 var random = RandomNumberGenerator.new()
-var foodPos = -1
 
-export (int) var speed = 100
 var velocity = Vector2()
 var inputs: Array
 var neural
 
+export (int) var speed = 100
+export (int) var health = 300
+
 func _init():
 	neural = NeuralNetwork.new()
 	neural.start(5,10,4)
-	random.randomize()
 
 func _physics_process(delta):
 	# pegar atributos para a rede neural
@@ -22,16 +22,24 @@ func _physics_process(delta):
 	var tile:Vector2 = tilemap.world_to_map(pos)
 	var cell_id:int = tilemap.get_cellv(tile)
 	var food = tilemap.get_used_cells_by_id(0)
-
-
+	
 	if food.size() > 0:
 		#var map_size = tilemap.cell_size
-		print(cell_id)
-		print(tile)
-		print(food[0])
 		inputs = neural.think(cell_id, tile[0], tile[1], food[0][0], food[0][1])
 		if cell_id >= 0:
 			move(delta)
+	
+	#update saude
+	if cell_id == 0:
+		health += 1
+	elif cell_id == 1:
+		health -= 1
+	else:
+		health -= 1
+	
+	# kill player
+	if health < 0:
+		queue_free()
 	
 func move(delta):
 	
