@@ -8,9 +8,11 @@ var bias: float = 0.1
 func sigmoid(x):
 	return 1 / (1 + exp(-x))
 
-func start(size_inputs,size_hidden,size_output):
-	randomArray(size_inputs,size_hidden,weights_inputs)
-	randomArray(size_hidden,size_output,weights_output)
+func start(wi, wo):
+	#randomArray(size_inputs,size_hidden,weights_inputs)
+	#randomArray(size_hidden,size_output,weights_output)
+	weights_inputs = wi
+	weights_output = wo
 	
 func think(id_tile_map, player_x, player_y, map_size_x, map_size_y):
 	var inputs: Array = [id_tile_map, player_x, player_y, map_size_x, map_size_y]

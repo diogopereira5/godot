@@ -7,13 +7,22 @@ var random = RandomNumberGenerator.new()
 var velocity = Vector2()
 var inputs: Array
 var neural
+var isLive: bool = true
+var timeLive: float = 0
+var maxHealth
 
-export (int) var speed = 100
-export (int) var health = 300
+export (Array) var weigths_input = []
+export (Array) var weigths_output = []
+export (int) var id
+export (int) var speed
+export (int) var health
 
 func _init():
 	neural = NeuralNetwork.new()
-	neural.start(5,10,4)
+	
+func _ready():
+	neural.start(weigths_input,weigths_output)
+	maxHealth = health
 
 func _physics_process(delta):
 	# pegar atributos para a rede neural
@@ -36,10 +45,15 @@ func _physics_process(delta):
 		health -= 1
 	else:
 		health -= 1
+		
+	get_node("HP").value = (health * 100) / maxHealth
 	
 	# kill player
 	if health < 0:
 		queue_free()
+		isLive = false
+	else:
+		timeLive += 1
 	
 func move(delta):
 	
