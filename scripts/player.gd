@@ -50,7 +50,7 @@ func _physics_process(delta):
 	
 	# kill player
 	if health < 0:
-		queue_free()
+		#queue_free()
 		isLive = false
 	else:
 		timeLive += 1

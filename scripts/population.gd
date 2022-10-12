@@ -16,6 +16,24 @@ var players: Array = []
 func _ready():
 	createPopualtion()
 			
+func _process(delta):
+	var sizeGlobal = get_child_count()
+	var sizeDead = 0
+	for i in get_child_count():
+		var child = get_child(i)
+		if child.isLive == false:
+			sizeDead += 1
+	
+	print(sizeGlobal)
+	print(sizeDead)
+	
+	if sizeGlobal == sizeDead:
+		for i in get_child_count():
+			var child = get_child(i)
+			players.append([child.id,child.timeLive, child.weigths_input, child.weigths_output])
+			child.queue_free()
+			createPopualtion()
+	
 func createPopualtion():
 	
 	random.randomize()

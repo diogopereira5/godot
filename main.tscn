@@ -8,4 +8,3 @@
 [node name="Map" parent="." instance=ExtResource( 2 )]
 
 [node name="Population" parent="." instance=ExtResource( 1 )]
-populationSize = 30
