@@ -6,7 +6,6 @@
 [node name="Main" type="Node2D"]
 
 [node name="Map" parent="." instance=ExtResource( 2 )]
-lifeSize = 100
 
 [node name="Population" parent="." instance=ExtResource( 1 )]
-populationSize = 20
+populationSize = 50

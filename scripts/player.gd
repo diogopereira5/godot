@@ -35,7 +35,7 @@ func _physics_process(delta):
 	if food.size() > 0:
 		#var map_size = tilemap.cell_size
 		inputs = neural.think(cell_id, tile[0], tile[1], food[0][0], food[0][1])
-		if cell_id >= 0:
+		if cell_id >= 0 && health > 0:
 			move(delta)
 	
 	#update saude

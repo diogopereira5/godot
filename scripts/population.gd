@@ -5,11 +5,12 @@ onready var Map := get_tree().get_root().get_node("Main").get_node("Map")
 var random = RandomNumberGenerator.new()
 
 export (int) var populationSize = 1
-export (int) var layers_input_size = 5
-export (int) var layers_hidden_size = 10
+export (int) var layers_input_size = 4
+export (int) var layers_hidden_size = 5
 export (int) var layers_output_size = 4
 export (int) var speedGlobal = 100
 export (int) var healthGlobal = 300
+var generation = 1
 
 var players: Array = []
 var newPlayers: Array = []
@@ -20,6 +21,7 @@ func _ready():
 	button.text = "New Generation"
 	button.connect("pressed", self, "new_generation")
 	add_child(button)
+	get_node("label").text = str(generation)+"ª Generation"
 	
 func new_generation():
 	var sizeGlobal = get_node("players").get_child_count()
@@ -29,7 +31,9 @@ func new_generation():
 		players.append([child.id,child.timeLive, child.weigths_input, child.weigths_output])
 		if child.isLive == false:
 			child.queue_free()
-			
+	generation += 1
+	get_node("label").text = str(generation)+"ª Generation"
+	
 	createNewGeration()
 	
 func createPopualtion():
@@ -80,6 +84,8 @@ func createNewGeration():
 				if player[1] > montherTimeLive:
 					montherTimeLive = player[1]
 					monther = player
+					
+		print("Melhor valor da geração "+str(generation-1)+" foi: "+str(father[1]))
 		
 		newPlayers.append([father[2], father[3]])
 		newPlayers.append([monther[2], monther[3]])
@@ -87,7 +93,7 @@ func createNewGeration():
 		for i in (populationSize - 2) / 2:
 			var children = crossing(father,monther)
 			newPlayers.append([children[0][2], children[0][3]])
-			newPlayers.append([children[1][2], children[1][3]])
+			newPlayers.append([children[0][2], children[1][3]])
 			
 		newPlayers = mutation(newPlayers)
 		for i in newPlayers.size():
